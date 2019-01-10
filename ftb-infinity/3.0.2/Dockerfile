@@ -35,6 +35,7 @@ EXPOSE 25565
 
 # Expose volume
 VOLUME ["/minecraft/world"]
+VOLUME ["/"]
 
 # Start server
 CMD ["/bin/bash", "/minecraft/ServerStart.sh"]
