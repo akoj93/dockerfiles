@@ -5,6 +5,7 @@ MAINTAINER Jonas Bonno Mikkelsen (https://github.com/JonasBonno)
 # Updating container
 RUN apt-get update && \
 	apt-get upgrade --yes --force-yes && \
+	apt-get install -y nano && \
 	apt-get clean && \ 
 	rm -rf /var/lib/apt/lists/* 
 
@@ -35,7 +36,7 @@ EXPOSE 25565
 
 # Expose volume
 VOLUME ["/minecraft/world"]
-VOLUME ["/minecraft"]
+VOLUME ["/"]
 
 # Start server
 CMD ["/bin/bash", "/minecraft/ServerStart.sh"]
