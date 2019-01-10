@@ -1,6 +1,6 @@
 FROM java:8-jre
 
-MAINTAINER Jonas Bonno Mikkelsen (https://github.com/JonasBonno)
+MAINTAINER Tummy
 
 # Updating container
 RUN apt-get update && \
@@ -26,7 +26,7 @@ RUN useradd -m -U minecraft && \
 	echo "$(date)" >> eula.txt && \
 	echo "eula=TRUE" >> eula.txt && \
 	chown -R minecraft:minecraft /minecraft
-USER minecraft
+# USER minecraft
 
 # Running install
 RUN /minecraft/FTBInstall.sh
