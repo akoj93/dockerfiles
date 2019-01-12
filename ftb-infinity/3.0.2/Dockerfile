@@ -12,7 +12,18 @@ RUN apt-get update && \
 # Setting workdir
 WORKDIR /minecraft
 
-#ENV motd = Mommy made me do it
+#This is the different ENV variables you will soon be able to modify some settings.
+#ENV motd = Welcome to the server
+#ENV worldname =world
+
+#This is the format that an admin need to work... This is Notch.
+#ENV adminuuid =069a79f4-44e9-4726-a5be-fca90e38aaf5
+#ENV adminname =Notch
+#ENV adminlevel =4
+
+#ENV backuptimer =2.0
+#ENV backupstokeep =12
+#ENV backupfolder =./backups/
 
 # Changing user to root
 USER root
