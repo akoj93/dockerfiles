@@ -33,7 +33,8 @@ USER root
 RUN useradd -m -U minecraft && \
 	mkdir -p /minecraft/world && \
 	wget http://addons-origin.cursecdn.com/files/2484/486/FTBInfinityServer_3.0.2.zip && \
-	unzip -n FTBInfinityServer_3.0.2.zip && \
+	unzip FTBInfinityServer_3.0.2.zip && \
+	#unzip -n FTBInfinityServer_3.0.2.zip && \
 	rm FTBInfinityServer_3.0.2.zip && \
 	chmod u+x FTBInstall.sh ServerStart.sh && \
 	echo "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula)." > eula.txt && \
@@ -42,8 +43,8 @@ RUN useradd -m -U minecraft && \
 	chown -R minecraft:minecraft /minecraft && \
 #This is stuff i added
 	wget https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/server.properties && \
-	sed "s/motd=.*/motd=$motd/g" server.properties && \
-	sed "s/level-name=.*/level-name=$levelname/g" server.properties
+	sed "s/motd=.*/motd=${motd}/g" server.properties && \
+	sed "s/level-name=.*/level-name=${levelname}/g" server.properties
 # USER minecraft
 
 # Running install
