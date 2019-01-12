@@ -12,6 +12,8 @@ RUN apt-get update && \
 # Setting workdir
 WORKDIR /minecraft
 
+#ENV motd = Mommy made me do it
+
 # Changing user to root
 USER root
 
