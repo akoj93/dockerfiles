@@ -13,13 +13,13 @@ RUN apt-get update && \
 WORKDIR /minecraft
 
 #This is the different ENV variables you will soon be able to modify some settings.
-ENV motd =Welcome to the server
-ENV levelname =world
+ENV motd="Welcome to the testserver"
+ENV levelname="test"
 
 #This is the format that an admin need to work... This is Notch.
-ENV adminuuid =069a79f4-44e9-4726-a5be-fca90e38aaf5
-ENV adminname =Notch
-ENV adminlevel =4
+ENV adminuuid=069a79f4-44e9-4726-a5be-fca90e38aaf5
+ENV adminname=Notch
+ENV adminlevel=4
 
 #backup settings
 ENV backuptimer =2.0
