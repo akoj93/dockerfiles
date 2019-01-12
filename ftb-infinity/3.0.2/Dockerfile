@@ -12,6 +12,10 @@ RUN apt-get update && \
 # Setting workdir
 WORKDIR /minecraft
 
+
+# Changing user to root
+USER root
+
 #This is the different ENV variables you will soon be able to modify some settings.
 ENV motd="Welcome to the testserver"
 ENV levelname="test"
@@ -26,14 +30,11 @@ ENV backuptimer =2.0
 ENV backupstokeep =12
 ENV backupfolder =./backups/
 
-# Changing user to root
-USER root
-
 # Creating user and downloading files
 RUN useradd -m -U minecraft && \
 	mkdir -p /minecraft/world && \
-	wget http://addons-origin.cursecdn.com/files/2484/486/FTBInfinityServer_3.0.2.zip && \
-	unzip FTBInfinityServer_3.0.2.zip && \
+	wget -q http://addons-origin.cursecdn.com/files/2484/486/FTBInfinityServer_3.0.2.zip && \
+	unzip -q FTBInfinityServer_3.0.2.zip && \
 	#unzip -n FTBInfinityServer_3.0.2.zip && \
 	rm FTBInfinityServer_3.0.2.zip && \
 	chmod u+x FTBInstall.sh ServerStart.sh && \
