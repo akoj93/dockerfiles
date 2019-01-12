@@ -13,17 +13,18 @@ RUN apt-get update && \
 WORKDIR /minecraft
 
 #This is the different ENV variables you will soon be able to modify some settings.
-#ENV motd = Welcome to the server
-#ENV worldname =world
+ENV motd =Welcome to the server
+ENV levelname =world
 
 #This is the format that an admin need to work... This is Notch.
-#ENV adminuuid =069a79f4-44e9-4726-a5be-fca90e38aaf5
-#ENV adminname =Notch
-#ENV adminlevel =4
+ENV adminuuid =069a79f4-44e9-4726-a5be-fca90e38aaf5
+ENV adminname =Notch
+ENV adminlevel =4
 
-#ENV backuptimer =2.0
-#ENV backupstokeep =12
-#ENV backupfolder =./backups/
+#backup settings
+ENV backuptimer =2.0
+ENV backupstokeep =12
+ENV backupfolder =./backups/
 
 # Changing user to root
 USER root
@@ -39,6 +40,10 @@ RUN useradd -m -U minecraft && \
 	echo "$(date)" >> eula.txt && \
 	echo "eula=TRUE" >> eula.txt && \
 	chown -R minecraft:minecraft /minecraft
+	#This is stuff i added
+	wget https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/server.properties
+	sed "s/motd=*/motd=$motd/g" server.properties
+	sed "s/level-name=*/level-name=$levelname/g" server.properties
 # USER minecraft
 
 # Running install
