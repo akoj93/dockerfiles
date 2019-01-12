@@ -19,7 +19,7 @@ USER root
 RUN useradd -m -U minecraft && \
 	mkdir -p /minecraft/world && \
 	wget http://addons-origin.cursecdn.com/files/2484/486/FTBInfinityServer_3.0.2.zip && \
-	unzip FTBInfinityServer_3.0.2.zip && \
+	unzip -n FTBInfinityServer_3.0.2.zip && \
 	rm FTBInfinityServer_3.0.2.zip && \
 	chmod u+x FTBInstall.sh ServerStart.sh && \
 	echo "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula)." > eula.txt && \
