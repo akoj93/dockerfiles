@@ -39,10 +39,10 @@ RUN useradd -m -U minecraft && \
 	echo "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula)." > eula.txt && \
 	echo "$(date)" >> eula.txt && \
 	echo "eula=TRUE" >> eula.txt && \
-	chown -R minecraft:minecraft /minecraft
-	#This is stuff i added
-	wget https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/server.properties
-	sed "s/motd=*/motd=$motd/g" server.properties
+	chown -R minecraft:minecraft /minecraft && \
+#This is stuff i added
+	wget https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/server.properties && \
+	sed "s/motd=*/motd=$motd/g" server.properties && \
 	sed "s/level-name=*/level-name=$levelname/g" server.properties
 # USER minecraft
 
