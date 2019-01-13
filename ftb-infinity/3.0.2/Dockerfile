@@ -17,18 +17,18 @@ WORKDIR /minecraft
 USER root
 
 #This is the different ENV variables you will soon be able to modify some settings.
-ENV motd="Welcome to the testserver"
-ENV levelname="test"
+ENV motd "Welcome to the testserver"
+ENV levelname test
 
 #This is the format that an admin need to work... This is Notch.
-ENV adminuuid=069a79f4-44e9-4726-a5be-fca90e38aaf5
-ENV adminname=Notch
-ENV adminlevel=4
+ENV adminuuid 069a79f4-44e9-4726-a5be-fca90e38aaf5
+ENV adminname Notch
 
 #backup settings
-ENV backuptimer =2.0
-ENV backupstokeep =12
-ENV backupfolder =./backups/
+ENV backuptimer 2.0
+ENV backupstokeep 12
+ENV backupfolder ./backups/
+RUN echo "$motd $levelname $adminuuid $adminname $adminlevel $backuptimer $backupstokeep $backupfolder"
 
 # Creating user and downloading files
 RUN useradd -m -U minecraft && \
