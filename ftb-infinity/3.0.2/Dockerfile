@@ -4,7 +4,7 @@ MAINTAINER Tummy
 
 #This is the different ENV variables you will soon be able to modify some settings.
 ENV motd Ljurs.se
-ENV loginmotd Welcome Welcome Welcome
+ENV loginmotd Welcome!
 
 ENV adminuuid 8aa6b4f2-81aa-4bf7-93de-4d8a453c9df4 \
 	adminname Girltummy \
@@ -52,13 +52,12 @@ RUN	wget -q https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infi
 # Running install
 RUN /minecraft/FTBInstall.sh
 RUN env
-RUN	sed -i "s/motd=.*/motd=${motd}/g" server.properties
+RUN	sed -i "s/motd=.*/motd=${motd}/g" server.properties && \
 	sed -i "s/    \"backup_timer\".*/    \"backup_timer\": $backuptimer,/g"  /minecraft/local/ftbu/config.json && \
 	sed -i "s/    \"backups_to_keep\".*/    \"backups_to_keep\": $backupstokeep,/g"  /minecraft/local/ftbu/config.json && \
 	sed -i "s/      \"Welcome to the server!\".*/      \"$loginmotd\"/g"  /minecraft/local/ftbu/config.json && \
 	sed -i "s/    \"restart_timer\":.*/    \"restart_timer\": $restarttimer,/g"  /minecraft/local/ftbu/config.json && \
-	sed -i "s/\[\].*/\[\n\{\n\"uuid\": \"$adminuuid\",\n\"name\": \"$adminname\",\n\"level\": 4\n\}\n\]/g" ops.json && \
-
+	sed -i "s/\[\].*/\[\n\{\n\"uuid\": \"$adminuuid\",\n\"name\": \"$adminname\",\n\"level\": 4\n\}\n\]/g" ops.json
 # Expose port 25565
 EXPOSE 25565
 
