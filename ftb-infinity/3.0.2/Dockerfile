@@ -63,9 +63,7 @@ RUN	sed -i "s/motd=.*/motd=${motd}/g" server.properties
 EXPOSE 25565
 
 # Expose volumes
-VOLUME ["/minecraft/world"]
-VOLUME ["/minecraft/backups"]
-
+VOLUME /minecraft/world /minecraft/backups
 
 # Start server
 #You can only have one CMD. What is in cmd is what you get.
