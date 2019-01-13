@@ -2,6 +2,21 @@ FROM java:8-jre
 
 MAINTAINER Tummy
 
+#This is the different ENV variables you will soon be able to modify some settings.
+ENV motd A minecraft server
+ENV loginmotd Welcome to the server
+
+
+#This is the format that an admin need to work...
+ENV adminuuid 8aa6b4f2-81aa-4bf7-93de-4d8a453c9df4
+ENV adminname Girltummy
+
+#backup settings
+ENV backuptimer 1.0
+ENV backupstokeep 12
+
+RUN env
+
 # Updating container
 RUN apt-get update && \
 	apt-get upgrade --yes --force-yes && \
@@ -16,43 +31,27 @@ WORKDIR /minecraft
 # Changing user to root
 USER root
 
-#This is the different ENV variables you will soon be able to modify some settings.
-ENV motd "A minecraft server"
-ENV loginmotd "Welcome to the server"
-
-
-#This is the format that an admin need to work... This is Notch.
-ENV adminuuid 069a79f4-44e9-4726-a5be-fca90e38aaf5
-ENV adminname Notch
-
-#backup settings
-ENV backuptimer 2.0
-ENV backupstokeep 12
-RUN echo "$motd $levelname $adminuuid $adminname $adminlevel $backuptimer $backupstokeep $backupfolder"
 
 # Creating user and downloading files
 RUN useradd -m -U minecraft && \
 	mkdir -p /minecraft/world && \
 	wget -q http://addons-origin.cursecdn.com/files/2484/486/FTBInfinityServer_3.0.2.zip && \
 	unzip -q FTBInfinityServer_3.0.2.zip && \
-	#unzip -n FTBInfinityServer_3.0.2.zip && \
 	rm FTBInfinityServer_3.0.2.zip && \
 	chmod u+x FTBInstall.sh ServerStart.sh && \
 	echo "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula)." > eula.txt && \
 	echo "$(date)" >> eula.txt && \
 	echo "eula=TRUE" >> eula.txt && \
-	chown -R minecraft:minecraft /minecraft && \
+	chown -R minecraft:minecraft /minecraft
 #This is stuff i added
-	wget https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/server.properties && \
+RUN	wget https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/server.properties && \
 	wget https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/config.json -P /minecraft/local/ftbu && \
 	wget https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/ops.json && \
 	sed -i "s/motd=.*/motd=${motd}/g" server.properties && \
 	sed -i "s/    \"backup_timer\".*/    \"backup_timer\": $backuptimer,/g"  /minecraft/local/ftbu/config.json && \
 	sed -i "s/    \"backups_to_keep\".*/    \"backups_to_keep\": $backupstokeep,/g"  /minecraft/local/ftbu/config.json && \
 	sed -i "s/      \"Welcome to the server!\".*/      \"$loginmotd\"/g"  /minecraft/local/ftbu/config.json
-RUN	sed -i "s/\[\].*/[\n{\n\"uuid\": \"$adminuuid\",\n\"name\": \"$adminname\",\n\"level\": 4\n}\n]/g" ops.json
-
-# USER minecraft
+	sed -i "s/\[\].*/[\n{\n\"uuid\": \"$adminuuid\",\n\"name\": \"$adminname\",\n\"level\": 4\n}\n]/g" ops.json
 
 # Running install
 RUN /minecraft/FTBInstall.sh
