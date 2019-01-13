@@ -70,5 +70,5 @@ VOLUME ["/minecraft/backups"]
 
 # Start server
 #You can only have one CMD. What is in cmd is what you get.
-CMD ["/bin/bash", "/minecraft/prep.sh", "/minecraft/ServerStart.sh"]
-
+#CMD ["/bin/bash", "/minecraft/prep.sh", "/minecraft/ServerStart.sh"]
+CMD ["/bin/bash", "/minecraft/prep.sh"]
