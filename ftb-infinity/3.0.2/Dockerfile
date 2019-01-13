@@ -48,8 +48,8 @@ RUN useradd -m -U minecraft && \
 #	sed -i "s/level-name=.*/level-name=${levelname}/g" server.properties && \
 	sed -i "s/    "backup_timer".*/    "backup_timer": $backuptimer,/g"  /minecraft/local/ftbu/config.json && \
 	sed -i "s/    "backups_to_keep" ".*/    "backups_to_keep": $backupstokeep,/g"  /minecraft/local/ftbu/config.json && \
-	sed -i "s/      "Welcome to the server!".*/      "$loginmotd"/g"  /minecraft/local/ftbu/config.json
-	sed -i "s/[].*/[{"uuid": "$adminuuid","name": "$adminname","level": 4}]"
+	sed -i "s/      "Welcome to the server!".*/      "$loginmotd"/g"  /minecraft/local/ftbu/config.json && \
+	sed -i "s/[].*/[{"uuid": "$adminuuid","name": "$adminname","level": 4}]/g" ops.json
 # USER minecraft
 
 # Running install
