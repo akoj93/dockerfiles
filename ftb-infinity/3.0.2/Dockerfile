@@ -53,7 +53,7 @@ RUN useradd -m -U minecraft && \
 # Running install
 RUN /minecraft/FTBInstall.sh
 
-RUN	sed -i "s/motd=.*/motd=${motd}/g" server.properties && \
+RUN	sed -i "s/motd=.*/motd=${motd}/g" server.properties
 RUN	sed -i "s/    \"backup_timer\".*/    \"backup_timer\": $backuptimer,/g"  /minecraft/local/ftbu/config.json
 RUN	sed -i "s/    \"backups_to_keep\".*/    \"backups_to_keep\": $backupstokeep,/g"  /minecraft/local/ftbu/config.json
 RUN	sed -i "s/      \"Welcome to the server!\".*/      \"$loginmotd\"/g"  /minecraft/local/ftbu/config.json
