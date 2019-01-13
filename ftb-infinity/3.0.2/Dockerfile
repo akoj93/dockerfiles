@@ -44,8 +44,8 @@ RUN useradd -m -U minecraft && \
 	chown -R minecraft:minecraft /minecraft && \
 #This is stuff i added
 	wget https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/server.properties && \
-	sed "s/motd=.*/motd=${motd}/g" server.properties && \
-	sed "s/level-name=.*/level-name=${levelname}/g" server.properties
+	sed -i "s/motd=.*/motd=${motd}/g" server.properties && \
+	sed -i "s/level-name=.*/level-name=${levelname}/g" server.properties
 # USER minecraft
 
 # Running install
