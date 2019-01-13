@@ -13,7 +13,7 @@ ENV adminuuid 8aa6b4f2-81aa-4bf7-93de-4d8a453c9df4 \
 	backuptimer 1.0 \
 	backupstokeep 12
 
-RUN env
+
 
 # Updating container
 RUN apt-get update && \
@@ -33,24 +33,27 @@ USER root
 # Creating user and downloading files
 RUN useradd -m -U minecraft && \
 	mkdir -p /minecraft/world && \
+	wget -q https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/prep.sh && \
 	wget -q http://addons-origin.cursecdn.com/files/2484/486/FTBInfinityServer_3.0.2.zip && \
 	unzip -q FTBInfinityServer_3.0.2.zip && \
 	rm FTBInfinityServer_3.0.2.zip && \
-	chmod u+x FTBInstall.sh ServerStart.sh && \
+	chmod u+x FTBInstall.sh ServerStart.sh prep.sh && \
 	echo "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula)." > eula.txt && \
 	echo "$(date)" >> eula.txt && \
 	echo "eula=TRUE" >> eula.txt && \
 	chown -R minecraft:minecraft /minecraft
-#This is stuff i added
-RUN	wget https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/server.properties && \
-	wget https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/config.json -P /minecraft/local/ftbu && \
-	wget https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/ops.json && \
-	sed -i "s/motd=.*/motd=${motd}/g" server.properties && \
-	sed -i "s/    \"backup_timer\".*/    \"backup_timer\": $backuptimer,/g"  /minecraft/local/ftbu/config.json && \
-	sed -i "s/    \"backups_to_keep\".*/    \"backups_to_keep\": $backupstokeep,/g"  /minecraft/local/ftbu/config.json && \
-	sed -i "s/      \"Welcome to the server!\".*/      \"$loginmotd\"/g"  /minecraft/local/ftbu/config.json && \
-	sed -i "s/\[\].*/[\n{\n\"uuid\": \"$adminuuid\",\n\"name\": \"$adminname\",\n\"level\": 4\n}\n]/g" ops.json
+#This is stuff i added. I moved this to prep.sh
+#RUN	wget https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/server.properties && \
+#	wget https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/config.json -P /minecraft/local/ftbu && \
+#	wget https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/ops.json && \
+#	sed -i "s/motd=.*/motd=${motd}/g" server.properties && \
+#	sed -i "s/    \"backup_timer\".*/    \"backup_timer\": $backuptimer,/g"  /minecraft/local/ftbu/config.json && \
+#	sed -i "s/    \"backups_to_keep\".*/    \"backups_to_keep\": $backupstokeep,/g"  /minecraft/local/ftbu/config.json && \
+#	sed -i "s/      \"Welcome to the server!\".*/      \"$loginmotd\"/g"  /minecraft/local/ftbu/config.json && \
+#	sed -i "s/\[\].*/[\n{\n\"uuid\": \"$adminuuid\",\n\"name\": \"$adminname\",\n\"level\": 4\n}\n]/g" ops.json
 
+	
+	
 # Running install
 RUN /minecraft/FTBInstall.sh
 
@@ -61,8 +64,7 @@ EXPOSE 25565
 VOLUME ["/minecraft/world"]
 VOLUME ["/minecraft/backups"]
 
-RUN env
 
 # Start server
-CMD ["/bin/bash", "/minecraft/ServerStart.sh"]
-RUN env
+CMD ["/bin/bash", "/minecraft/prep.sh", "/minecraft/ServerStart.sh"]
+
