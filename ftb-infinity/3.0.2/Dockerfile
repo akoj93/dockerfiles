@@ -10,8 +10,9 @@ ENV loginmotd Welcome to the server
 #This is the format that an admin need to work...
 ENV adminuuid 8aa6b4f2-81aa-4bf7-93de-4d8a453c9df4 \
 	adminname Girltummy \
-	backuptimer 1.0 \
-	backupstokeep 12
+	backuptimer 2.0 \
+	backupstokeep 12 \
+	restarttimer 0.0
 
 
 
