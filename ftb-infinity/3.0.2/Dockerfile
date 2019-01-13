@@ -19,7 +19,7 @@ USER root
 #This is the different ENV variables you will soon be able to modify some settings.
 ENV motd "A minecraft server"
 ENV loginmotd "Welcome to the server"
-#ENV levelname world
+
 
 #This is the format that an admin need to work... This is Notch.
 ENV adminuuid 069a79f4-44e9-4726-a5be-fca90e38aaf5
@@ -45,11 +45,12 @@ RUN useradd -m -U minecraft && \
 #This is stuff i added
 	wget https://raw.githubusercontent.com/akoj93/dockerfiles/master/ftb-infinity/3.0.2/server.properties && \
 	sed -i "s/motd=.*/motd=${motd}/g" server.properties && \
-#	sed -i "s/level-name=.*/level-name=${levelname}/g" server.properties && \
-	sed -i "s/    "backup_timer".*/    "backup_timer": $backuptimer,/g"  /minecraft/local/ftbu/config.json && \
-	sed -i "s/    "backups_to_keep".*/    "backups_to_keep": $backupstokeep,/g"  /minecraft/local/ftbu/config.json && \
-	sed -i "s/      "Welcome to the server!".*/      "$loginmotd"/g"  /minecraft/local/ftbu/config.json && \
-	sed -i "s/[].*/[{"uuid": "$adminuuid","name": "$adminname","level": 4}]/g" ops.json
+	
+	sed -i "s/    "backup_timer".*/    "backup_timer": $backuptimer,/g"  /minecraft/local/ftbu/config.json # && \
+#	sed -i "s/    "backups_to_keep".*/    "backups_to_keep": $backupstokeep,/g"  /minecraft/local/ftbu/config.json && \
+#	sed -i "s/      "Welcome to the server!".*/      "$loginmotd"/g"  /minecraft/local/ftbu/config.json && \
+#	sed -i "s/[].*/[{"uuid": "$adminuuid","name": "$adminname","level": 4}]/g" ops.json
+
 # USER minecraft
 
 # Running install
